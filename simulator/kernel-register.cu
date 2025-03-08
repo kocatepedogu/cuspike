@@ -10,6 +10,8 @@ extern uint32_t *spike_counts;
 
 extern uint32_t *matrix;
 
+#include "./generated/kernel-register/device_functions.cu"
+
 __device__ int spiked_neurons[N];
 __device__ int spiked_neurons_cnt;
 

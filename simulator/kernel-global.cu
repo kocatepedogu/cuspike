@@ -12,6 +12,7 @@ extern uint32_t *synapses;
 extern uint32_t *indices;
 
 #include "./generated/kernel-global/device-arrays.cu"
+#include "./generated/kernel-global/device_functions.cu"
 
 __device__ uint32_t spiked_neurons[N];
 __device__ uint32_t spiked_neurons_cnt;

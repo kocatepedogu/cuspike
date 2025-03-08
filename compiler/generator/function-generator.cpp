@@ -8,7 +8,7 @@
 std::string function_to_cuda_code(const FunctionDefinition *function, KernelType kernel_type) {
     std::stringstream s;
 
-    s << std::endl << "__device__" << std::endl;
+    s << std::endl << "__device__ inline" << std::endl;
     s << typename_to_cuda_code(function->returnType);
     s << " ";
     s << function->name;
