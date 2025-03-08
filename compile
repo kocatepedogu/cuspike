@@ -1,0 +1,39 @@
+# --- Enter compiler directory ---
+cd compiler
+
+# Delete generated code files
+rm ./generated/config.hpp
+rm ./generated/kernel-register/*.cu
+rm ./generated/kernel-global/*.cu
+
+# Compile compiler
+make clean
+make -j$(nproc)
+
+# Compile model
+cat ../models/cuba.csm | ./compiler
+
+# Leave compiler directory
+cd ..
+
+# --- Enter simulator directory ---
+cd simulator
+
+# Delete generated code files
+rm -r generated
+
+# Copy newly generated code files
+cp -r ../compiler/generated ./
+
+# Compile simulator
+make clean
+make -j$(nproc)
+
+# Leave simulator directory
+cd ..
+
+# --- Run simulator ---
+time ./simulator.exe plot
+
+# --- Plot results ---
+python3 plot.py

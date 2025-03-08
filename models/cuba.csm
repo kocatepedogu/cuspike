@@ -1,0 +1,46 @@
+real ms = 1;
+real mV = 1;
+
+real refractoriness = 5*ms;
+real taum = 20*ms;
+real taue = 5*ms;
+real taui = 10*ms;
+real Vt = -50*mV;
+real Vr = -60*mV;
+real El = -49*mV;
+real we = (60 * 0.27 / 10) * mV;
+real wi = (-20 * 4.5 / 10) * mV;
+
+real dt = 0.1*ms;
+real T = 100000*ms;
+
+int N = 20000;
+int Ne = 0.8 * N;
+
+Neuron {
+  real v = -60;
+  real r = 0;
+  real ge = 0;
+  real gi = 0;
+
+  always @(reset) {
+     v = Vr;
+  };
+
+  always @(active) {
+    v += (dt/taum) * (El + ge + gi - v);
+  };
+
+  always {
+    ge = ge * (1 - dt/taue);
+    gi = gi * (1 - dt/taui);
+  };
+
+  always @(spike) {
+    if (pre < Ne) {
+      ge += we;
+    } else if (pre < N) {
+      gi += wi;
+    };
+  };
+};
