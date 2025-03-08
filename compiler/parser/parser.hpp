@@ -21,5 +21,6 @@
 #include "neuron-definition.hpp"
 #include "always.hpp"
 #include "if.hpp"
+#include "return.hpp"
 
 #endif

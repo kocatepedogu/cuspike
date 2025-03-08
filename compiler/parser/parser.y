@@ -35,6 +35,7 @@ int yylex(void);
     NeuronDefinition *neurondefinition;
     Always *always;
     If *ifexpr;
+    Return *returnexpr;
 
     std::string *keyword;
     std::string *identifier;
@@ -52,6 +53,7 @@ int yylex(void);
 %token <keyword> keyword_always
 %token <keyword> keyword_if
 %token <keyword> keyword_else
+%token <keyword> keyword_return
 
 %type <expr> exp term factor func_comp
 %type <statement> statement expression_st assignment_st
@@ -64,6 +66,7 @@ int yylex(void);
 %type <neurondefinition> neuron_def_st
 %type <always> always_st
 %type <ifexpr> ifexpr_st
+%type <returnexpr> returnexpr_st
 
 %%
 
@@ -80,6 +83,7 @@ statement       : expression_st                             {$$ = $1;}
                 | neuron_def_st                             {$$ = $1;}
                 | always_st                                 {$$ = $1;}
                 | ifexpr_st                                 {$$ = $1;}
+                | returnexpr_st                             {$$ = $1;}
                 ;
 
 expression_st   : exp                                       {$$ = $1;}
@@ -158,6 +162,9 @@ always_st       : keyword_always '@' '(' id ')' block_st    {$$ = new Always($6,
 ifexpr_st       : keyword_if '(' exp ')' statement          {$$ = new If($3, $5);}
                 | keyword_if '(' exp ')' statement
                     keyword_else statement                  {$$ = new If($3, $5, $7);}
+                ;
+
+returnexpr_st   : keyword_return exp                        {$$ = new Return($2);}
                 ;
 
 %%

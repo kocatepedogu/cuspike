@@ -12,6 +12,7 @@ all: build/bison.o \
      build/neuron-definition.o \
      build/always.o \
      build/if.o \
+     build/return.o \
      build/parameter-list.o \
      build/variable-declaration.o \
      build/variable-definition.o
@@ -54,6 +55,9 @@ build/always.o: always.cpp always.hpp
 
 build/if.o: if.cpp if.hpp
 	$(CXX) -c if.cpp  -o build/if.o
+
+build/return.o: return.cpp return.hpp
+	$(CXX) -c return.cpp  -o build/return.o
 
 build/parameter-list.o: parameter-list.cpp parameter-list.hpp
 	$(CXX) -c parameter-list.cpp  -o build/parameter-list.o
