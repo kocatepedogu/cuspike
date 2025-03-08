@@ -1,0 +1,84 @@
+// Units
+real ms = 1e-3;
+real mV = 1e-3;
+real umetre = 1e-6;
+real ufarad = 1e-6;
+real cm = 1e-2;
+real msiemens = 1e-3;
+real nS = 1e-9;
+real siemens = 1;
+
+// Parameters
+real area = 20000*(umetre*umetre);
+real Cm = (1*ufarad) * area / (cm*cm);
+
+real El = -60*mV;
+real EK = -90*mV;
+real ENa = 50*mV;
+
+real g_na = (100*msiemens) * area / (cm*cm);
+real g_kd = (30*msiemens) * area / (cm*cm);
+real gl = (5e-5*siemens) * area / (cm*cm);
+
+real VT = -63*mV;
+
+// Time constants
+real taue = 5*ms;
+real taui = 10*ms;
+
+// Reversal potentials
+real Ee = 0*mV;
+real Ei = -80*mV;
+real we = 6*nS;      // excitatory synaptic weight
+real wi = 67*nS;     // inhibitory synaptic weight
+
+// Simulation Configuration
+real Vt = -20*mV;
+real refractoriness = 3*ms;
+
+real dt = 0.1*ms;
+real T = 10000*ms;
+
+int N = 4000;
+int Ne = 0.8 * N;
+
+Neuron {
+  real r = 0;
+
+  real v = -60;
+  real m = 0.8;
+  real n = 0.8;
+  real h = 0.8;
+
+  real ge = 0;
+  real gi = 0;
+
+  real exprel(real x) {
+    return (exp(x) - 1) / x;
+  };
+
+  always {
+    real alpha_m = 0.32*(1/mV)*4*mV/exprel((13*mV-v+VT)/(4*mV))/ms;
+    real beta_m = 0.28*(1/mV)*5*mV/exprel((v - VT - 40*mV)/(5*mV))/ms;
+    real alpha_h = 0.128*exp((17*mV-v+VT)/(18*mV))/ms;
+    real beta_h = 4.0/(1+exp((40*mV-v+VT)/(5*mV)))/ms;
+    real alpha_n = 0.032*(1/mV)*5*mV/exprel((15*mV-v+VT)/(5*mV))/ms;
+    real beta_n = 0.5*exp((10*mV-v+VT)/(40*mV))/ms;
+
+    v += dt * ( (gl*(El-v)+ge*(Ee-v)+gi*(Ei-v)-g_na*(m*m*m)*h*(v-ENa)-g_kd*(n*n*n*n)*(v-EK))/Cm );
+    m += dt * ( alpha_m*(1-m)-beta_m*m );
+    n += dt * ( alpha_n*(1-n)-beta_n*n );
+    h += dt * ( alpha_h*(1-h)-beta_h*h );
+
+    ge += dt * ( -ge * (1.0/taue) );
+    gi += dt * ( -gi * (1.0/taui) );
+  };
+
+  always @(spike) {
+    if (pre < Ne) {
+      ge += we;
+    } else {
+      gi += wi;
+    };
+  };
+};
