@@ -13,5 +13,5 @@ with mp.Pool(2) as p:
 
     plt.figure(figsize=(75, 75))
     plt.plot(t_array, s_array, ',k')
-    plt.savefig('output/cuba.png')
+    plt.savefig('output/output.png')
 

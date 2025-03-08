@@ -11,7 +11,7 @@ make clean
 make -j$(nproc)
 
 # Compile model
-cat ../models/cuba.csm | ./compiler
+cat ../models/$1 | ./compiler
 
 # Leave compiler directory
 cd ..
