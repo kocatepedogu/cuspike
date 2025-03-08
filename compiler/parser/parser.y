@@ -106,6 +106,7 @@ exp             : term                                      {$$ = $1;}
                 | exp '<' '=' exp                           {$$ = (*$1 <= *$4).clone();}
                 | exp '+' term                              {$$ = (*$1 + *$3).clone();}
                 | exp '-' term                              {$$ = (*$1 - *$3).clone();}
+                | '-' term                                  {$$ = (-(*$2)).clone();}
                 ;
 
 term            : factor                                    {$$ = $1;}

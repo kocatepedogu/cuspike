@@ -2,6 +2,7 @@
 #define BINARY_OPERATION_HPP
 
 #include "expression.hpp"
+#include "constant.hpp"
 
 class BinaryOperation : public Expression
 {
@@ -53,6 +54,10 @@ static inline BinaryOperation operator < (const Expression& e1, const Expression
 
 static inline BinaryOperation operator <= (const Expression& e1, const Expression& e2) {
     return BinaryOperation(&e1, &e2, LESS_OR_EQUAL);
+}
+
+static inline BinaryOperation operator - (const Expression& e) {
+    return *new Constant(new std::string("0")) - e;
 }
 
 #endif
