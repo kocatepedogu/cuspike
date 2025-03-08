@@ -12,3 +12,5 @@ compiler/parser/build/**
 compiler/scanner/build/**
 
 simulator/generated/**
+simulator/*.o
+simulator.exe
