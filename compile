@@ -11,7 +11,7 @@ make clean
 make -j$(nproc)
 
 # Compile model
-cat ../models/$1 | ./compiler
+cpp -E ../models/$1 | grep -wv '#' | ./compiler
 
 # Leave compiler directory
 cd ..
