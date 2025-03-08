@@ -10,6 +10,7 @@ compiler/generated/kernel-register/**
 compiler/generator/build/**
 compiler/parser/build/**
 compiler/scanner/build/**
+compiler/compiler
 
 simulator/generated/**
 simulator/*.o
