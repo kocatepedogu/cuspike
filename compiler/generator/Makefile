@@ -1,7 +1,8 @@
 all: build/generator.o \
      build/typename-generator.o \
      build/expression-generator.o \
-     build/statement-generator.o
+     build/statement-generator.o \
+     build/function-generator.o
 
 build/generator.o: generator.cpp
 	$(CXX) -c generator.cpp -o build/generator.o
@@ -11,6 +12,8 @@ build/expression-generator.o: expression-generator.cpp
 	$(CXX) -c expression-generator.cpp -o build/expression-generator.o
 build/statement-generator.o: statement-generator.cpp
 	$(CXX) -c statement-generator.cpp -o build/statement-generator.o
+build/function-generator.o: function-generator.cpp
+	$(CXX) -c function-generator.cpp -o build/function-generator.o
 
 clean:
 	rm build/*.o

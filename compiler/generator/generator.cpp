@@ -2,6 +2,7 @@
 #include "expression-generator.hpp"
 #include "typename-generator.hpp"
 #include "statement-generator.hpp"
+#include "function-generator.hpp"
 
 #include "../parser/parser.hpp"
 
@@ -128,10 +129,25 @@ void processAlwaysBlocks(NeuronDefinition *neuron_definition) {
     }
 }
 
+void processFunctions(NeuronDefinition *neuron_definition) {
+    std::ofstream kernel_register_device_functions("./generated/kernel-register/device_functions.cu");
+    std::ofstream kernel_global_device_functions("./generated/kernel-global/device_functions.cu");
+
+    for (Statement* st : neuron_definition->code->statements)
+    {
+        FunctionDefinition *function_st = dynamic_cast<FunctionDefinition *>(st);
+        if (function_st) {
+            kernel_register_device_functions << function_to_cuda_code(function_st, RegisterKernel) << std::endl;
+            kernel_global_device_functions << function_to_cuda_code(function_st, GlobalKernel) << std::endl;
+        }
+    }
+}
+
 void generator() {
     NeuronDefinition *neuron_definition = getNeuronDefinition();
 
     processConstantSymbols();
     processNeuronSymbols(neuron_definition);
     processAlwaysBlocks(neuron_definition);
+    processFunctions(neuron_definition);
 }

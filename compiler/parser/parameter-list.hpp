@@ -8,10 +8,9 @@
 
 class ParameterList : public Statement
 {
-private:
+public:
     std::vector<VariableDeclaration*> parameters;
 
-public:
     ParameterList() = default;
     ParameterList(VariableDeclaration* first);
     ParameterList(VariableDeclaration* first, VariableDeclaration* second);

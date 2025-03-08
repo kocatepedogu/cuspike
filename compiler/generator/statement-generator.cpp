@@ -165,6 +165,10 @@ std::string block_to_cuda_code(Block *block, KernelType kernel_type, bool atomic
     return s.str();
 }
 
+std::string return_to_cuda_code(Return *return_st, KernelType kernel_type, bool atomic) {
+    return "return " + expression_to_cuda_code(return_st->return_value, kernel_type) + ";";
+}
+
 std::string statement_to_cuda_code(Statement *statement, KernelType kernel_type, bool atomic) {
     Assignment *assignment = dynamic_cast<Assignment *>(statement);
     if (assignment) {
@@ -194,6 +198,11 @@ std::string statement_to_cuda_code(Statement *statement, KernelType kernel_type,
     Expression *expr_statement = dynamic_cast<Expression *>(statement);
     if (expr_statement) {
         return expression_to_cuda_code(expr_statement, kernel_type);
+    }
+
+    Return* return_statement = dynamic_cast<Return *>(statement);
+    if (return_statement) {
+        return return_to_cuda_code(return_statement, kernel_type, atomic);
     }
 
     fprintf(stderr, "Unknown statement type\n");

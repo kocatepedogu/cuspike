@@ -10,13 +10,12 @@
 
 class FunctionDefinition : public Statement
 {
-private:
+public:
     TypeName returnType;
     ParameterList* parameters;
     std::string name;
     Block* code;
 
-public:
     FunctionDefinition(TypeName T, std::string* N, ParameterList* P, Block* B);
     void print(std::string indent) const override;
 };
