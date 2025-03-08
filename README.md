@@ -7,6 +7,7 @@ For small networks, the simulator utilizes cooperative groups and stores neuron 
 ## Installation
 
 ```
+sudo dnf install flex bison
 git clone https://github.com/kocatepedogu/cuspike.git
 cd cuspike
 ```
