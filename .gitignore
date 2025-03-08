@@ -1,0 +1,14 @@
+env.sh
+
+output/output.png
+output/t_array.dat
+output/s_array.dat
+
+compiler/generated/config.hpp
+compiler/generated/kernel-global/**
+compiler/generated/kernel-register/**
+compiler/generator/build/**
+compiler/parser/build/**
+compiler/scanner/build/**
+
+simulator/generated/**
