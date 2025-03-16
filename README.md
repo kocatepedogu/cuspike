@@ -27,7 +27,7 @@ The recorded spikes are written to `output/t_array.dat` and `output/s_array.dat`
 The CUBA benchmark model (for which the original reference implementation can be found in [Brian2 documentation](https://brian2.readthedocs.io/en/stable/examples/CUBA.html)) is provided as an example under `models` directory. The example has 20,000 neurons and simulates 100 seconds of biological time, which are higher than the original model (4000N/1s). To run the model:
 
 ```
-./compile cuba.csm
+./compile cuba.csm plot
 ```
 
 ## Benchmarks ##
