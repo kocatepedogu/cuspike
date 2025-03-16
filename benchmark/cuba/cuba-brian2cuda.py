@@ -1,3 +1,6 @@
+import timeit
+t_begin = timeit.default_timer()
+
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
@@ -43,6 +46,10 @@ print("wi =", wi / mV)
 s_mon = SpikeMonitor(P)
 
 run(100 * second)
+
+t_end = timeit.default_timer()
+with open('cuba-brian2cuda-elapsedtime.txt', 'w') as f:
+    f.write(str(t_end - t_begin))
 
 if 'plot' in sys.argv:
     plt.figure(figsize=(75, 75))

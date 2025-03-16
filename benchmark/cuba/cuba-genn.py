@@ -1,3 +1,6 @@
+import timeit
+t_begin = timeit.default_timer()
+
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
@@ -111,6 +114,10 @@ exc_spike_times, exc_spike_ids = exc_pop.spike_recording_data[0]
 inh_spike_times, inh_spike_ids = inh_pop.spike_recording_data[0]
 
 print(f"Number of spikes: {len(exc_spike_ids) + len(inh_spike_ids)}")
+
+t_end = timeit.default_timer()
+with open('cuba-genn-elapsedtime.txt', 'w') as f:
+    f.write(str(t_end - t_begin))
 
 if 'plot' in sys.argv:
     plt.figure(figsize=(75, 75))

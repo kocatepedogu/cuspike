@@ -8,9 +8,23 @@ DISTROBOX() {
   distrobox enter cuspike-container --additional-flags "$ENV" -- $*
 }
 
-## CUBA Benchmark ##
+#######################################################################
+# Current Based Synapses - Leaky Integrate and Fire (CUBA Model)      #
+# 20,000 neurons simulated for a biological time of 100 seconds       #
+#######################################################################
 
 cd cuba
+
+## ------------- Delete Cache and Generated Files ------------------ ##
+
+rm -r __pycache__ # Brian2Cuda and NESTGPU
+rm -r cuba_CODE   # GeNN
+rm -r output      # Brian2Cuda
+
+## ------------- Benchmark including compilation time --------------- ##
+# Without the previously generated files and pycache, all simulators
+# using a coding generation approach (GeNN, Brian2Cuda, cuSpike) must
+# generate and compile CUDA code during this benchmark.
 
 # GeNN
 DISTROBOX python3 cuba-genn.py plot
@@ -21,3 +35,37 @@ DISTROBOX python3 cuba-nestgpu.py plot
 # Brian2Cuda
 DISTROBOX python3 cuba-brian2cuda.py plot
 
+# cuSpike
+(cd ../.. && DISTROBOX bash ./compile cuba.csm)
+
+# Plot bar chart for total elapsed time
+DISTROBOX python3 cuba-plot.py
+
+# Save elapsed time chart including compilation time as a separate file
+mv cuba-elapsedtime.png cuba-elapsedtime-including-compilation.png
+
+## ------------- Benchmark excluding compilation time --------------- ##
+# GeNN and Brian2Cuda automatically decide whether a change has been
+# made to the model. If there is no change, they use the already present
+# executables and shared libraries generated in the previous execution.
+# cuSpike does not support such an automatical mechanism as of now, but
+# the previously created executable can be directly invoked to obtain
+# the same effect.
+
+# GeNN
+DISTROBOX python3 cuba-genn.py plot
+
+# NEST GPU
+DISTROBOX python3 cuba-nestgpu.py plot
+
+# Brian2Cuda
+DISTROBOX python3 cuba-brian2cuda.py plot
+
+# cuSpike
+(cd ../.. && DISTROBOX ./simulator.exe)
+
+# Plot bar chart for total elapsed time
+DISTROBOX python3 cuba-plot.py
+
+# Save elapsed time chart excluding compilation time as a separate file
+mv cuba-elapsedtime.png cuba-elapsedtime-excluding-compilation.png

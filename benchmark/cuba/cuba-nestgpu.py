@@ -1,3 +1,6 @@
+import timeit
+t_begin = timeit.default_timer()
+
 import matplotlib.pyplot as plt
 import nestgpu as ngpu
 import numpy as np
@@ -85,6 +88,10 @@ ngpu.Simulate(sim_time=T)
 
 exc_spikes = ngpu.GetRecSpikeTimes(exc_pop)
 inh_spikes = ngpu.GetRecSpikeTimes(inh_pop)
+
+t_end = timeit.default_timer()
+with open('cuba-nestgpu-elapsedtime.txt', 'w') as f:
+    f.write(str(t_end - t_begin))
 
 if 'plot' in sys.argv:
     spike_times = []

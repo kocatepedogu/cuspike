@@ -22,3 +22,8 @@ benchmark/cuba/cuba_CODE
 benchmark/cuba/output
 benchmark/cuba/__pycache__
 benchmark/cuba/*.png
+benchmark/cuba/*.txt
+*.txt
+
+!benchmark/cuba/cuba-elapsedtime-excluding-compilation.png
+!benchmark/cuba/cuba-elapsedtime-including-compilation.png
