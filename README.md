@@ -32,19 +32,31 @@ The CUBA benchmark model (for which the original reference implementation can be
 
 ## Benchmarks ##
 
-The performance of cuSpike has been compared against three state-of-the-art simulators. To build a container in which all benchmarks can be performed, enter the `docker` directory and run the `build` script. The script will create an AlmaLinux 9.4 container with Brian2Cuda (1.0a6), NEST GPU and GeNN (5.1.0) simulators, together with the CUDA Toolkit (12.6). Building the container may take up to an hour, mostly due to the long download time for the CUDA Toolkit. Both Podman and Docker should work properly independent of the host distribution. Please send a bug report if you encounter an error in this step. CUDA Container Toolkit is not required.
+The performance of cuSpike has been compared against three state-of-the-art simulators. To build a container in which all benchmarks can be performed, enter into the `docker` directory and run the `build` script. The script will create an AlmaLinux 9.4 container with Brian2Cuda (1.0a6), NEST GPU and GeNN (5.1.0) simulators, together with the CUDA Toolkit (12.6). Building the container may take up to an hour, mostly due to the long download time for the CUDA Toolkit. Both Podman and Docker should work properly independent of the host distribution. Please send a bug report if you encounter an error in this step. CUDA Container Toolkit is not required.
 
 ```
 cd docker
 ./build
 ```
 
-After the container image is built, enter into the benchmark directory and execute the benchmark script. This script runs each simulator with the CUBA model (20000N/100s).
+After the container image is built, enter into the benchmark directory and execute the benchmark script.
 
 ```
-cd ../benchmarks
+cd ..
+cd benchmark
+
 ./benchmark
 ```
+
+The simulators are first executed without previously generated/cached files. This run provides the amount of time needed for both code generation/compilation and simulation. The results are presented below.
+
+<img src="./benchmark/cuba/cuba-elapsedtime-including-compilation.png" width="800px">
+
+In the second benchmark, the simulators are run with existing files from the previous execution. Brian2Cuda and GeNN use a code generation approach and both are able to detect whether any changes has been made to the model. In case no changes are detected, both use the previously created binaries. cuSpike is also based on code generation, so the same effect is obtained by directly invoking the previously generated executable, although it is not able to do this automatically as of now.
+
+<img src="./benchmark/cuba/cuba-elapsedtime-excluding-compilation.png" width="800px">
+
+NEST GPU does not use code generation, so the results do not differ significantly.
 
 ## LICENSE
 
