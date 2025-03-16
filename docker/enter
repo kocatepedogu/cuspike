@@ -1,0 +1,2 @@
+#!/bin/sh
+distrobox enter cuspike-benchmark --additional-flags "--env PATH=/venv/bin:/usr/local/cuda/bin:$PATH" -- bash -c "cd .. && bash"

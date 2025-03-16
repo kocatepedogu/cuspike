@@ -1,0 +1,26 @@
+#!/bin/sh
+
+if type "podman" > /dev/null; then
+  container="podman"
+fi
+
+if type "docker" > /dev/null; then
+  container="docker"
+fi
+
+if [[ -z "$container" ]]; then
+  echo "Docker or Podman must be installed."
+  exit
+fi
+
+$container build -t cuspike/benchmark .
+
+curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sh -s -- --prefix $(pwd)/distrobox
+
+export PATH=$(pwd)/distrobox/bin:$PATH
+
+distrobox stop cuspike-benchmark --yes
+
+distrobox rm cuspike-benchmark --yes
+
+distrobox create --name cuspike-benchmark --image localhost/cuspike/benchmark:latest --nvidia --yes

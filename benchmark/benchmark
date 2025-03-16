@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd cuba
+python3 genn.py plot

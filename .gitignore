@@ -16,6 +16,7 @@ simulator/generated/**
 simulator/*.o
 simulator.exe
 
-benchmark/venv
-benchmark/genn-5.1.0
-benchmark/genn-5.1.0.tar.gz
+docker/distrobox
+
+benchmark/cuba/cuba_CODE
+benchmark/cuba/*.png
