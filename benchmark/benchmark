@@ -62,7 +62,7 @@ DISTROBOX python3 cuba-nestgpu.py plot
 DISTROBOX python3 cuba-brian2cuda.py plot
 
 # cuSpike
-(cd ../.. && DISTROBOX ./simulator.exe)
+(cd ../.. && DISTROBOX bash ./simulator.sh)
 
 # Plot bar chart for total elapsed time
 DISTROBOX python3 cuba-plot.py
