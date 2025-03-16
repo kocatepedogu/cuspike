@@ -13,10 +13,10 @@ DISTROBOX() {
 cd cuba
 
 # GeNN
-DISTROBOX python3 genn.py plot
+DISTROBOX python3 cuba-genn.py plot
 
 # NEST GPU
-DISTROBOX python3 nestgpu.py plot
+DISTROBOX python3 cuba-nestgpu.py plot
 
 # Brian2Cuda
 DISTROBOX python3 cuba-brian2cuda.py plot
