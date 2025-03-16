@@ -13,14 +13,15 @@ if [[ -z "$container" ]]; then
   exit
 fi
 
-$container build -t cuspike/benchmark .
+$container build -t cuspike/container .
 
 curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sh -s -- --prefix $(pwd)/distrobox
 
 export PATH=$(pwd)/distrobox/bin:$PATH
 
-distrobox stop cuspike-benchmark --yes
+distrobox stop cuspike-container --yes
 
-distrobox rm cuspike-benchmark --yes
+distrobox rm cuspike-container --yes
 
-distrobox create --name cuspike-benchmark --image localhost/cuspike/benchmark:latest --nvidia --yes
+distrobox create --name cuspike-container --image localhost/cuspike/container:latest --nvidia --yes
+

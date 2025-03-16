@@ -20,3 +20,4 @@ docker/distrobox
 
 benchmark/cuba/cuba_CODE
 benchmark/cuba/*.png
+benchmark/cuba/__pycache__

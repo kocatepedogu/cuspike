@@ -117,4 +117,4 @@ if 'plot' in sys.argv:
     plt.plot(exc_spike_times, exc_spike_ids, ',k')
     plt.plot(inh_spike_times, inh_spike_ids + int(N*0.8), ',k')
     plt.ylabel("Neuron ID")
-    plt.savefig('genn.png')
+    plt.savefig('cuba-genn.png')

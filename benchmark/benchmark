@@ -1,4 +1,23 @@
 #!/bin/sh
 
+## Distrobox Settings ##
+
+export PATH=$(pwd)/../docker/distrobox:$PATH
+DISTROBOX() {
+  ENV="--env PATH=/venv/bin:/usr/local/cuda/bin:$PATH"
+  distrobox enter cuspike-container --additional-flags "$ENV" -- $*
+}
+
+## CUBA Benchmark ##
+
 cd cuba
-python3 genn.py plot
+
+# GeNN
+DISTROBOX python3 genn.py plot
+
+# NEST GPU
+DISTROBOX python3 nestgpu.py plot
+
+# Brian2Cuda
+# python3 brian2cuda.py plot
+
