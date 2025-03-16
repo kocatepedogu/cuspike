@@ -39,7 +39,7 @@ cd docker
 ./build
 ```
 
-After the container image is built, enter into the benchmark directory and execute the benchmark script. The script sequentially runs cuSpike, GeNN, Brian2Cuda and NEST GPU with the CUBA model. 20,000 neurons are simulated for a biological time of 100s.
+After the container image is built, enter into the benchmark directory and execute the benchmark script. The script runs cuSpike, GeNN, Brian2Cuda and NEST GPU with the CUBA model. 20,000 neurons are simulated for a biological time of 100 seconds. The figures below are generated at the end of benchmarks under `benchmark/cuba` directory.
 
 ```
 cd ..
