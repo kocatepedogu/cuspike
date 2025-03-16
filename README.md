@@ -32,7 +32,7 @@ The CUBA benchmark model (for which the original reference implementation can be
 
 ## Benchmarks ##
 
-The performance of cuSpike has been compared against three state-of-the-art simulators. To build a container in which all benchmarks can be performed, enter the `models` directory and run the `build` script. The script will create an AlmaLinux 9.4 container with Brian2Cuda (1.0a6), NEST GPU and GeNN (5.1.0) simulators, together with the CUDA Toolkit (12.6). Building the container may take up to an hour, mostly due to the long download time for the CUDA Toolkit. Both Podman and Docker should work properly independent of the host distribution. Please send a bug report if you encounter an error in this step. CUDA Container Toolkit is not required.
+The performance of cuSpike has been compared against three state-of-the-art simulators. To build a container in which all benchmarks can be performed, enter the `docker` directory and run the `build` script. The script will create an AlmaLinux 9.4 container with Brian2Cuda (1.0a6), NEST GPU and GeNN (5.1.0) simulators, together with the CUDA Toolkit (12.6). Building the container may take up to an hour, mostly due to the long download time for the CUDA Toolkit. Both Podman and Docker should work properly independent of the host distribution. Please send a bug report if you encounter an error in this step. CUDA Container Toolkit is not required.
 
 ```
 cd docker
