@@ -17,7 +17,7 @@ cd cuspike
 Place model definition under `models` directory. Execute the following under the root of the source directory.
 
 ```
-./compile model-name.csm
+./compile model-name.csm plot
 ```
 
 The recorded spikes are written to `output/t_array.dat` and `output/s_array.dat` files. The first file stores the time of each spike whereas the second file stores the index of the neurons which produced those spikes. Both files are read by plot.py to produce the raster plot saved to `output/output.png`
