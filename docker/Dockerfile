@@ -142,3 +142,6 @@ ENV PYTHONPATH="/opt/nest-gpu-bin/lib64/python3.12/site-packages${PYTHONPATH:+:$
 
 ENV NESTGPU_LIB="/opt/nest-gpu-bin/lib64/nestgpu/libnestgpukernel.so"
 
+# Install Brian2Cuda
+
+RUN pip3 install brian2==2.7.1 brian2cuda==1.0a6

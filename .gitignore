@@ -19,5 +19,6 @@ simulator.exe
 docker/distrobox
 
 benchmark/cuba/cuba_CODE
-benchmark/cuba/*.png
+benchmark/cuba/output
 benchmark/cuba/__pycache__
+benchmark/cuba/*.png

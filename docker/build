@@ -13,15 +13,22 @@ if [[ -z "$container" ]]; then
   exit
 fi
 
+# Build container image from dockerfile
+
 $container build -t cuspike/container .
+
+# Download distrobox to be able to use containers with GPU support without caring about podman, docker or CUDA Container Toolkit
 
 curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sh -s -- --prefix $(pwd)/distrobox
 
 export PATH=$(pwd)/distrobox/bin:$PATH
 
+# Remove a previously created container if exists
+
 distrobox stop cuspike-container --yes
 
 distrobox rm cuspike-container --yes
 
-distrobox create --name cuspike-container --image localhost/cuspike/container:latest --nvidia --yes
+# Create a new container from the newly built container image
 
+distrobox create --name cuspike-container --image localhost/cuspike/container:latest --nvidia --yes

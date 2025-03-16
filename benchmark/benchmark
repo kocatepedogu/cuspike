@@ -1,6 +1,6 @@
 #!/bin/sh
 
-## Distrobox Settings ##
+## Distrobox Configuration ##
 
 export PATH=$(pwd)/../docker/distrobox:$PATH
 DISTROBOX() {
@@ -19,5 +19,5 @@ DISTROBOX python3 genn.py plot
 DISTROBOX python3 nestgpu.py plot
 
 # Brian2Cuda
-# python3 brian2cuda.py plot
+DISTROBOX python3 cuba-brian2cuda.py plot
 
