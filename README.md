@@ -39,7 +39,7 @@ cd docker
 ./build
 ```
 
-After the container image is built, enter into the benchmark directory and execute the benchmark script.
+After the container image is built, enter into the benchmark directory and execute the benchmark script. The script sequentially runs cuSpike, GeNN, Brian2Cuda and NEST GPU with the CUBA model. 20,000 neurons are simulated for a biological time of 100s.
 
 ```
 cd ..
@@ -50,11 +50,11 @@ cd benchmark
 
 The simulators are first executed without previously generated/cached files. This run provides the amount of time needed for both code generation/compilation and simulation. The results are presented below.
 
-<img src="./benchmark/cuba/cuba-elapsedtime-including-compilation.png" width="800px">
+<img src="./benchmark/cuba/cuba-elapsedtime-including-compilation.png" width="600px">
 
 In the second benchmark, the simulators are run with existing files from the previous execution. Brian2Cuda and GeNN use a code generation approach and both are able to detect whether any changes has been made to the model. In case no changes are detected, both use the previously created binaries. cuSpike is also based on code generation, so the same effect is obtained by directly invoking the previously generated executable, although it is not able to do this automatically as of now.
 
-<img src="./benchmark/cuba/cuba-elapsedtime-excluding-compilation.png" width="800px">
+<img src="./benchmark/cuba/cuba-elapsedtime-excluding-compilation.png" width="600px">
 
 NEST GPU does not use code generation, so the results do not differ significantly.
 
