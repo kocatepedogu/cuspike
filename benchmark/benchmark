@@ -9,6 +9,33 @@ DISTROBOX() {
 }
 
 #######################################################################
+# Conductance Based Synapses - Hodgkin Huxley (COBAHH Model)          #
+# 100,000 neurons simulated for a biological time of 5 seconds          #
+#######################################################################
+
+cd cobahh
+
+## ------------- Delete Cache and Generated Files ------------------ ##
+
+rm -r __pycache__ # Brian2Cuda
+rm -r output      # Brian2Cuda
+
+# Brian2Cuda
+DISTROBOX python3 cobahh-brian2cuda.py plot
+
+# cuSpike
+(cd ../.. && DISTROBOX bash ./compile cobahh.csm plot && cp ./output/output.png ./benchmark/cobahh/cobahh-cuspike.png)
+
+# Plot bar chart for total elapsed time
+DISTROBOX python3 cobahh-plot.py
+
+# Save elapsed time chart including compilation time as a separate file
+mv cobahh-elapsedtime.png cobahh-elapsedtime-including-compilation.png
+
+cd ..
+exit
+
+#######################################################################
 # Current Based Synapses - Leaky Integrate and Fire (CUBA Model)      #
 # 20,000 neurons simulated for a biological time of 100 seconds       #
 #######################################################################
@@ -69,3 +96,6 @@ DISTROBOX python3 cuba-plot.py
 
 # Save elapsed time chart excluding compilation time as a separate file
 mv cuba-elapsedtime.png cuba-elapsedtime-excluding-compilation.png
+
+
+
