@@ -76,7 +76,7 @@ The simulators are first executed without previously generated/cached files. Thi
 
 <img src="./benchmark/cuba/elapsedtime-including-compilation.png" width="600px">
 
-In the second benchmark, the simulators are run with existing files from the previous execution. Brian2Cuda and GeNN use a code generation approach and both are able to detect whether any changes has been made to the model. In case no changes are detected, both use the previously created binaries. cuSpike is also based on code generation, so the same effect is obtained by directly invoking the previously generated executable, although it is not able to do this automatically as of now.
+In the second benchmark, the simulators are run with existing files from the previous execution. cuSpike, Brian2Cuda and GeNN use code generation and all are able to detect whether any changes has been made to the model. In case no changes are detected, they use the previously created binaries.
 
 <img src="./benchmark/cuba/elapsedtime-excluding-compilation.png" width="600px">
 
