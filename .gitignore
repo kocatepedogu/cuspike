@@ -3,10 +3,13 @@ env.sh
 cuspike.egg-info
 pycuspike/__pycache__
 
+compiler/compiler
 compiler/generator/build/**
 compiler/parser/build/**
 compiler/scanner/build/**
-compiler/compiler
+!compiler/generator/build/.gitkeep
+!compiler/parser/build/.gitkeep
+!compiler/scanner/build/.gitkeep
 
 docker/distrobox
 
@@ -16,6 +19,8 @@ benchmark/cuba/cuspike-build
 benchmark/cuba/__pycache__
 benchmark/cuba/*.png
 benchmark/cuba/*.txt
+!benchmark/cuba/elapsedtime-excluding-compilation.png
+!benchmark/cuba/elapsedtime-including-compilation.png
 
 benchmark/cobahh/model_CODE
 benchmark/cobahh/output
@@ -23,11 +28,7 @@ benchmark/cobahh/cuspike-build
 benchmark/cobahh/__pycache__
 benchmark/cobahh/*.png
 benchmark/cobahh/*.txt
-
-*.txt
-
-!benchmark/cuba/elapsedtime-excluding-compilation.png
-!benchmark/cuba/elapsedtime-including-compilation.png
-
 !benchmark/cobahh/elapsedtime-including-compilation.png
 !benchmark/cobahh/elapsedtime-excluding-compilation.png
+
+*.txt
