@@ -65,7 +65,7 @@ The COBAHH benchmark model from [Brian2 documentation](https://brian2.readthedoc
 
 ## Benchmarks ##
 
-To execute the benchmarks, enter into the benchmark directory from within the container and execute the benchmark script. The script runs cuSpike, GeNN, Brian2Cuda and NEST GPU with the CUBA model. 20,000 neurons are simulated for a biological time of 100 seconds. The figures below are generated at the end of benchmarks under `benchmark/cuba` directory.
+To execute the benchmarks, enter into the benchmark directory from within the container and execute the benchmark script. The script runs cuSpike, GeNN, Brian2Cuda and NEST GPU with the CUBA model. 20,000 neurons are simulated for a biological time of 100 seconds. The figures below are generated at the end of benchmarks under `benchmark/cuba` directory. All figures were obtained on RTX 4080.
 
 ```
 cd benchmark
@@ -96,6 +96,15 @@ The following is the table of total energy consumption values measured by nvidia
 | GeNN            | 699.5070000000002      |
 | NEST GPU        | 1461.7808000000293     |
 | Brian2Cuda      | 2118.830100000042      |
+
+The same measurements on RTX 4080 are as follows
+
+| Simulator       | Energy Consumption (J) |
+|-----------------|------------------------|
+| cuSpike         | 366.28690000000313     |
+| GeNN            | 738.0435000000045      |
+| NEST GPU        | 2505.8223999999936     |
+| Brian2Cuda      | 5095.273399999765      |
 
 
 ## LICENSE
