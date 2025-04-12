@@ -86,6 +86,18 @@ In addition to the CUBA model, the COBAHH model is also executed by the benchmar
 
 <img src="./benchmark/cobahh/elapsedtime-excluding-compilation.png" width="600px">
 
+## Energy Consumption ##
+
+The following is the table of total energy consumption values measured by nvidia-smi on RTX 4050 during the CUBA benchmark (compilation included).
+
+| Simulator       | Energy Consumption (J) |
+|-----------------|------------------------|
+| cuSpike         | 325.8691000000002      |
+| GeNN            | 699.5070000000002      |
+| NEST GPU        | 1461.7808000000293     |
+| Brian2Cuda      | 2118.830100000042      |
+
+
 ## LICENSE
 
 cuSpike is free software: you can redistribute it and/or modify

@@ -31,4 +31,4 @@ for line in output.split('\n'):
     total_energy += float(value) * (interval * 1e-3)
 
 # Print the total energy consumption
-print(total_energy)
+print(f"Total energy consumption: {total_energy}")

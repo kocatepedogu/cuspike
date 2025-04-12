@@ -3,22 +3,22 @@
 run_simulators() {
   # cuSpike
   if [ -f "simulate_cuspike.py" ]; then
-    python3 simulate_cuspike.py plot
+    python3 ../measure-power-consumption.py python3 simulate_cuspike.py plot
   fi
 
   # GeNN
   if [ -f "simulate_genn.py" ]; then
-    python3 simulate_genn.py plot
+    python3 ../measure-power-consumption.py python3 simulate_genn.py plot
   fi
 
   # NEST GPU
   if [ -f "simulate_nestgpu.py" ]; then
-    python3 simulate_nestgpu.py plot
+    python3 ../measure-power-consumption.py python3 simulate_nestgpu.py plot
   fi
 
   # Brian2Cuda
   if [ -f "simulate_brian2cuda.py" ]; then
-    python3 simulate_brian2cuda.py plot
+    python3 ../measure-power-consumption.py python3 simulate_brian2cuda.py plot
   fi
 
   # Plot bar chart for total elapsed time
