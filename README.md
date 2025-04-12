@@ -50,13 +50,17 @@ cd benchmark
 
 The simulators are first executed without previously generated/cached files. This run provides the amount of time needed for both code generation/compilation and simulation. The results are presented below.
 
-<img src="./benchmark/cuba/cuba-elapsedtime-including-compilation.png" width="600px">
+<img src="./benchmark/cuba/elapsedtime-including-compilation.png" width="600px">
 
 In the second benchmark, the simulators are run with existing files from the previous execution. Brian2Cuda and GeNN use a code generation approach and both are able to detect whether any changes has been made to the model. In case no changes are detected, both use the previously created binaries. cuSpike is also based on code generation, so the same effect is obtained by directly invoking the previously generated executable, although it is not able to do this automatically as of now.
 
-<img src="./benchmark/cuba/cuba-elapsedtime-excluding-compilation.png" width="600px">
+<img src="./benchmark/cuba/elapsedtime-excluding-compilation.png" width="600px">
 
 NEST GPU does not use code generation, so the results do not differ significantly.
+
+In addition to the CUBA model, the COBAHH (conductance based synapses, Hodgkin-Huxley neurons) model is also implemented and is part of the benchmark script. This model simulates 100,000 neurons for a biological time of 2 seconds. Its performance is currently compared only against Brian2Cuda. The results excluding the compilation time is given in the following plot.
+
+<img src="./benchmark/cobahh/elapsedtime-excluding-compilation.png" width="600px">
 
 ## LICENSE
 
