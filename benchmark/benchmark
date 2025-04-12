@@ -69,4 +69,4 @@ run_benchmark 'cuba'
 # 100,000 neurons simulated for a biological time of 2 seconds        #
 #######################################################################
 
-#run_benchmark 'cobahh'
+run_benchmark 'cobahh'
