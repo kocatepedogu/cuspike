@@ -90,7 +90,7 @@ exc_spikes = ngpu.GetRecSpikeTimes(exc_pop)
 inh_spikes = ngpu.GetRecSpikeTimes(inh_pop)
 
 t_end = timeit.default_timer()
-with open('cuba-nestgpu-elapsedtime.txt', 'w') as f:
+with open('nestgpu-elapsedtime.txt', 'w') as f:
     f.write(str(t_end - t_begin))
 
 if 'plot' in sys.argv:
@@ -114,4 +114,4 @@ if 'plot' in sys.argv:
     plt.figure(figsize=(75, 75))
     plt.plot(spike_times, spike_ids, ',k')
     plt.ylabel("Neuron ID")
-    plt.savefig('cuba-nestgpu.png')
+    plt.savefig('nestgpu.png')

@@ -29,7 +29,7 @@ taui = 10*ms
 
 # GeNN Model
 
-model = GeNNModel("float", "cuba")
+model = GeNNModel("float", "model")
 model.dt = 0.1*ms
 
 # Neurons
@@ -116,7 +116,7 @@ inh_spike_times, inh_spike_ids = inh_pop.spike_recording_data[0]
 print(f"Number of spikes: {len(exc_spike_ids) + len(inh_spike_ids)}")
 
 t_end = timeit.default_timer()
-with open('cuba-genn-elapsedtime.txt', 'w') as f:
+with open('genn-elapsedtime.txt', 'w') as f:
     f.write(str(t_end - t_begin))
 
 if 'plot' in sys.argv:
@@ -124,4 +124,4 @@ if 'plot' in sys.argv:
     plt.plot(exc_spike_times, exc_spike_ids, ',k')
     plt.plot(inh_spike_times, inh_spike_ids + int(N*0.8), ',k')
     plt.ylabel("Neuron ID")
-    plt.savefig('cuba-genn.png')
+    plt.savefig('genn.png')

@@ -18,13 +18,13 @@ simulator.exe
 
 docker/distrobox
 
-benchmark/cuba/cuba_CODE
+benchmark/cuba/model_CODE
 benchmark/cuba/output
 benchmark/cuba/__pycache__
 benchmark/cuba/*.png
 benchmark/cuba/*.txt
 
-benchmark/cobahh/cobahh_CODE
+benchmark/cobahh/model_CODE
 benchmark/cobahh/output
 benchmark/cobahh/__pycache__
 benchmark/cobahh/*.png
@@ -32,8 +32,8 @@ benchmark/cobahh/*.txt
 
 *.txt
 
-!benchmark/cuba/cuba-elapsedtime-excluding-compilation.png
-!benchmark/cuba/cuba-elapsedtime-including-compilation.png
+!benchmark/cuba/elapsedtime-excluding-compilation.png
+!benchmark/cuba/elapsedtime-including-compilation.png
 
-!benchmark/cobahh/cobahh-elapsedtime-including-compilation.png
-!benchmark/cobahh/cobahh-elapsedtime-excluding-compilation.png
+!benchmark/cobahh/elapsedtime-including-compilation.png
+!benchmark/cobahh/elapsedtime-excluding-compilation.png

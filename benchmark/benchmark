@@ -8,94 +8,72 @@ DISTROBOX() {
   distrobox enter cuspike-container --additional-flags "$ENV" -- $*
 }
 
-#######################################################################
-# Conductance Based Synapses - Hodgkin Huxley (COBAHH Model)          #
-# 100,000 neurons simulated for a biological time of 5 seconds          #
-#######################################################################
 
-cd cobahh
+run_simulators() {
+  # GeNN
+  if [ -f "simulate_genn.py" ]; then
+    DISTROBOX python3 simulate_genn.py plot
+  fi
 
-## ------------- Delete Cache and Generated Files ------------------ ##
+  # NEST GPU
+  if [ -f "simulate_nestgpu.py" ]; then
+    DISTROBOX python3 simulate_nestgpu.py plot
+  fi
 
-rm -r __pycache__ # Brian2Cuda
-rm -r output      # Brian2Cuda
+  # Brian2Cuda
+  if [ -f "simulate_brian2cuda.py" ]; then
+    DISTROBOX python3 simulate_brian2cuda.py plot
+  fi
 
-# Brian2Cuda
-DISTROBOX python3 cobahh-brian2cuda.py plot
+  # cuSpike
+  (cd ../.. && DISTROBOX bash ./compile "$1".csm)
 
-# cuSpike
-(cd ../.. && DISTROBOX bash ./compile cobahh.csm plot && cp ./output/output.png ./benchmark/cobahh/cobahh-cuspike.png)
+  # Plot bar chart for total elapsed time
+  DISTROBOX python3 ../plot.py
+}
 
-# Plot bar chart for total elapsed time
-DISTROBOX python3 cobahh-plot.py
 
-# Save elapsed time chart including compilation time as a separate file
-mv cobahh-elapsedtime.png cobahh-elapsedtime-including-compilation.png
+run_benchmark() {
+  cd "$1"
 
-cd ..
-exit
+  ## ------------- Delete Cache and Generated Files ------------------ ##
+
+  rm -r __pycache__          # Brian2Cuda and NESTGPU
+  rm -r model_CODE           # GeNN
+  rm -r output               # Brian2Cuda
+
+  ## ------------- Benchmark including compilation time --------------- ##
+  # Without the previously generated files and pycache, all simulators
+  # using a coding generation approach (GeNN, Brian2Cuda, cuSpike) must
+  # generate and compile CUDA code during this benchmark.
+
+  run_simulators "$1"
+
+  # Save elapsed time chart including compilation time as a separate file
+  mv elapsedtime.png elapsedtime-including-compilation.png
+
+  ## ------------- Benchmark excluding compilation time --------------- ##
+  # GeNN and Brian2Cuda automatically decide whether a change has been
+  # made to the model. If there is no change, they use the already present
+  # executables and shared libraries generated in the previous execution.
+  # cuSpike does not support such an automatical mechanism as of now.
+
+  run_simulators "$1"
+
+  # Save elapsed time chart excluding compilation time as a separate file
+  mv elapsedtime.png elapsedtime-excluding-compilation.png
+}
 
 #######################################################################
 # Current Based Synapses - Leaky Integrate and Fire (CUBA Model)      #
 # 20,000 neurons simulated for a biological time of 100 seconds       #
 #######################################################################
 
-cd cuba
+run_benchmark 'cuba'
 
-## ------------- Delete Cache and Generated Files ------------------ ##
+#######################################################################
+# Conductance Based Synapses - Hodgkin Huxley (COBAHH Model)          #
+# 100,000 neurons simulated for a biological time of 5 seconds        #
+#######################################################################
 
-rm -r __pycache__ # Brian2Cuda and NESTGPU
-rm -r cuba_CODE   # GeNN
-rm -r output      # Brian2Cuda
-
-## ------------- Benchmark including compilation time --------------- ##
-# Without the previously generated files and pycache, all simulators
-# using a coding generation approach (GeNN, Brian2Cuda, cuSpike) must
-# generate and compile CUDA code during this benchmark.
-
-# GeNN
-DISTROBOX python3 cuba-genn.py plot
-
-# NEST GPU
-DISTROBOX python3 cuba-nestgpu.py plot
-
-# Brian2Cuda
-DISTROBOX python3 cuba-brian2cuda.py plot
-
-# cuSpike
-(cd ../.. && DISTROBOX bash ./compile cuba.csm)
-
-# Plot bar chart for total elapsed time
-DISTROBOX python3 cuba-plot.py
-
-# Save elapsed time chart including compilation time as a separate file
-mv cuba-elapsedtime.png cuba-elapsedtime-including-compilation.png
-
-## ------------- Benchmark excluding compilation time --------------- ##
-# GeNN and Brian2Cuda automatically decide whether a change has been
-# made to the model. If there is no change, they use the already present
-# executables and shared libraries generated in the previous execution.
-# cuSpike does not support such an automatical mechanism as of now, but
-# the previously created executable can be directly invoked to obtain
-# the same effect.
-
-# GeNN
-DISTROBOX python3 cuba-genn.py plot
-
-# NEST GPU
-DISTROBOX python3 cuba-nestgpu.py plot
-
-# Brian2Cuda
-DISTROBOX python3 cuba-brian2cuda.py plot
-
-# cuSpike
-(cd ../.. && DISTROBOX bash ./simulator.sh)
-
-# Plot bar chart for total elapsed time
-DISTROBOX python3 cuba-plot.py
-
-# Save elapsed time chart excluding compilation time as a separate file
-mv cuba-elapsedtime.png cuba-elapsedtime-excluding-compilation.png
-
-
-
+run_benchmark 'cobahh'

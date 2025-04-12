@@ -48,7 +48,7 @@ s_mon = SpikeMonitor(P)
 run(100 * second)
 
 t_end = timeit.default_timer()
-with open('cuba-brian2cuda-elapsedtime.txt', 'w') as f:
+with open('brian2cuda-elapsedtime.txt', 'w') as f:
     f.write(str(t_end - t_begin))
 
 if 'plot' in sys.argv:
@@ -56,5 +56,5 @@ if 'plot' in sys.argv:
     plt.plot(s_mon.t/ms, s_mon.i, ',k')
     plt.xlabel('Time (ms)')
     plt.ylabel('Neuron index')
-    plt.savefig('cuba-brian2cuda.png')
+    plt.savefig('brian2cuda.png')
 
