@@ -67,7 +67,7 @@ P.gi = '20 * 10.0*nS'
 
 s_mon = SpikeMonitor(P)
 
-run(5 * second)
+run(2 * second)
 
 t_end = timeit.default_timer()
 with open('brian2cuda-elapsedtime.txt', 'w') as f:

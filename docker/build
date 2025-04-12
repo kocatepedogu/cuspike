@@ -32,3 +32,9 @@ distrobox rm cuspike-container --yes
 # Create a new container from the newly built container image
 
 distrobox create --name cuspike-container --image localhost/cuspike/container:latest --nvidia --yes
+
+# Install cuspike within container
+
+distrobox enter cuspike-container \
+           --additional-flags "--env PATH=/venv/bin:/usr/local/cuda/bin:$PATH" \
+           -- bash -c "cd .. && pip3 install --editable ."

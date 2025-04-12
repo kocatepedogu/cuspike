@@ -22,7 +22,7 @@ real Vt = -20e-3;
 
 real refractoriness = 3*ms;
 real dt = 0.01*ms;
-real T = 5000*ms;
+real T = 2000*ms;
 
 int N = 100000;
 int Ne = 0.8 * N;

@@ -1,35 +1,28 @@
 #!/bin/sh
 
-## Distrobox Configuration ##
-
-export PATH=$(pwd)/../docker/distrobox:$PATH
-DISTROBOX() {
-  ENV="--env PATH=/venv/bin:/usr/local/cuda/bin:$PATH"
-  distrobox enter cuspike-container --additional-flags "$ENV" -- $*
-}
-
-
 run_simulators() {
+  # cuSpike
+  if [ -f "simulate_cuspike.py" ]; then
+    python3 simulate_cuspike.py plot
+  fi
+
   # GeNN
   if [ -f "simulate_genn.py" ]; then
-    DISTROBOX python3 simulate_genn.py plot
+    python3 simulate_genn.py plot
   fi
 
   # NEST GPU
   if [ -f "simulate_nestgpu.py" ]; then
-    DISTROBOX python3 simulate_nestgpu.py plot
+    python3 simulate_nestgpu.py plot
   fi
 
   # Brian2Cuda
   if [ -f "simulate_brian2cuda.py" ]; then
-    DISTROBOX python3 simulate_brian2cuda.py plot
+    python3 simulate_brian2cuda.py plot
   fi
 
-  # cuSpike
-  (cd ../.. && DISTROBOX bash ./compile "$1".csm)
-
   # Plot bar chart for total elapsed time
-  DISTROBOX python3 ../plot.py
+  python3 ../plot.py
 }
 
 
@@ -38,9 +31,10 @@ run_benchmark() {
 
   ## ------------- Delete Cache and Generated Files ------------------ ##
 
-  rm -r __pycache__          # Brian2Cuda and NESTGPU
+  rm -r __pycache__
   rm -r model_CODE           # GeNN
   rm -r output               # Brian2Cuda
+  rm -r cuspike-build
 
   ## ------------- Benchmark including compilation time --------------- ##
   # Without the previously generated files and pycache, all simulators
@@ -53,10 +47,9 @@ run_benchmark() {
   mv elapsedtime.png elapsedtime-including-compilation.png
 
   ## ------------- Benchmark excluding compilation time --------------- ##
-  # GeNN and Brian2Cuda automatically decide whether a change has been
-  # made to the model. If there is no change, they use the already present
+  # cuSpike, GeNN and Brian2Cuda automatically decide whether a change has
+  # been made to the model. If there is no change, they use the already present
   # executables and shared libraries generated in the previous execution.
-  # cuSpike does not support such an automatical mechanism as of now.
 
   run_simulators "$1"
 
@@ -73,7 +66,7 @@ run_benchmark 'cuba'
 
 #######################################################################
 # Conductance Based Synapses - Hodgkin Huxley (COBAHH Model)          #
-# 100,000 neurons simulated for a biological time of 5 seconds        #
+# 100,000 neurons simulated for a biological time of 2 seconds        #
 #######################################################################
 
-run_benchmark 'cobahh'
+#run_benchmark 'cobahh'

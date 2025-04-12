@@ -1,31 +1,25 @@
 env.sh
 
-output/output.png
-output/t_array.dat
-output/s_array.dat
+cuspike.egg-info
+pycuspike/__pycache__
 
-compiler/generated/config.hpp
-compiler/generated/kernel-global/**
-compiler/generated/kernel-register/**
 compiler/generator/build/**
 compiler/parser/build/**
 compiler/scanner/build/**
 compiler/compiler
 
-simulator/generated/**
-simulator/*.o
-simulator.exe
-
 docker/distrobox
 
 benchmark/cuba/model_CODE
 benchmark/cuba/output
+benchmark/cuba/cuspike-build
 benchmark/cuba/__pycache__
 benchmark/cuba/*.png
 benchmark/cuba/*.txt
 
 benchmark/cobahh/model_CODE
 benchmark/cobahh/output
+benchmark/cobahh/cuspike-build
 benchmark/cobahh/__pycache__
 benchmark/cobahh/*.png
 benchmark/cobahh/*.txt

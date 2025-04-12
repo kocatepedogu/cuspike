@@ -4,7 +4,7 @@ NVCC_FLAGS=-arch=native -Xcompiler="-fopenmp -O3"
 all: simulator.exe
 
 simulator.exe: main.o initialize.o save.o kernel-register.o kernel-global.o
-	$(NVCC) $(NVCC_FLAGS) *.o -o ../simulator.exe
+	$(NVCC) $(NVCC_FLAGS) *.o -o simulator.exe
 
 main.o: main.cu
 	$(NVCC) $(NVCC_FLAGS) -c main.cu -o main.o
@@ -22,6 +22,6 @@ kernel-global.o: kernel-global.cu
 	$(NVCC) $(NVCC_FLAGS) -c kernel-global.cu -o kernel-global.o
 
 clean:
-	rm -r *.o
-	rm ../simulator.exe
+	rm -rf *.o
+	rm -rf simulator.exe
 

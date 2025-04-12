@@ -4,7 +4,7 @@ import numpy as np
 from pathlib import Path
 
 simulators = {
-    'cuSpike': '../../cuspike-elapsedtime.txt',
+    'cuSpike': 'cuspike-elapsedtime.txt',
     'GeNN': 'genn-elapsedtime.txt',
     'NEST GPU': 'nestgpu-elapsedtime.txt',
     'Brian2Cuda': 'brian2cuda-elapsedtime.txt'
