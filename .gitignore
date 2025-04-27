@@ -22,6 +22,10 @@ benchmark/cuba/*.txt
 benchmark/cuba/*.dat
 !benchmark/cuba/elapsedtime-excluding-compilation.png
 !benchmark/cuba/elapsedtime-including-compilation.png
+!benchmark/cuba/cv-isi.png
+!benchmark/cuba/cv-isi-kl-divergence.png
+!benchmark/cuba/average-firing-rate.png
+!benchmark/cuba/average-firing-rate-kl-divergence.png
 
 benchmark/cobahh/model_CODE
 benchmark/cobahh/output
