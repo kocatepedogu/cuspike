@@ -106,6 +106,19 @@ The same measurements on RTX 4080 are as follows
 | NEST GPU        | 2505.8223999999936     |
 | Brian2Cuda      | 5095.273399999765      |
 
+## Accuracy ##
+
+In the CUBA benchmark, average firing rate distribution and CV ISI distribution are very close to Brian2Cuda and NEST GPU. When Brian2Cuda is considered the ground truth, cuSpike provides the most similar distributions (lowest KL-divergences) relative to GeNN and NEST GPU. 
+
+<div style="display: inline;">
+  <img src="./benchmark/cuba/average-firing-rate.png" width="400px">
+  <img src="./benchmark/cuba/average-firing-rate-kl-divergence.png" width="400px">
+</div>
+
+<div style="display: inline;">
+  <img src="./benchmark/cuba/cv-isi.png" width="400px">
+  <img src="./benchmark/cuba/cv-isi-kl-divergence.png" width="400px">
+</div>
 
 ## LICENSE
 
