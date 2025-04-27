@@ -18,3 +18,6 @@ t_array, s_array = model.spikes()
 plt.figure(figsize=(75, 75))
 plt.plot(t_array, s_array, ',k')
 plt.savefig('cuspike.png')
+
+from pycuspike import SpikeData
+SpikeData.save(t_array, s_array, 't_array_cuspike.dat', 's_array_cuspike.dat')

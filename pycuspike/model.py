@@ -5,6 +5,7 @@ import hashlib
 import numpy as np
 
 from pathlib import Path
+from .spikedata import SpikeData
 
 class Model:
     def __init__(self, file_name):
@@ -79,7 +80,4 @@ class Model:
 
 
     def spikes(self):
-        t_array = np.fromfile('cuspike-build/output/t_array.dat', dtype=np.float32)
-        s_array = np.fromfile('cuspike-build/output/s_array.dat', dtype=np.int32)
-
-        return t_array, s_array
+        return SpikeData.load('cuspike-build/output/t_array.dat', 'cuspike-build/output/s_array.dat')

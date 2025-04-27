@@ -23,6 +23,9 @@ run_simulators() {
 
   # Plot bar chart for total elapsed time
   python3 ../plot.py
+
+  # Plot accuracy comparisons
+  python3 ../analyze.py
 }
 
 
@@ -55,6 +58,8 @@ run_benchmark() {
 
   # Save elapsed time chart excluding compilation time as a separate file
   mv elapsedtime.png elapsedtime-excluding-compilation.png
+
+  cd ..
 }
 
 #######################################################################

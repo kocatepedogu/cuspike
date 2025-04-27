@@ -125,3 +125,8 @@ if 'plot' in sys.argv:
     plt.plot(inh_spike_times, inh_spike_ids + int(N*0.8), ',k')
     plt.ylabel("Neuron ID")
     plt.savefig('genn.png')
+
+    from pycuspike import SpikeData
+    t_array = np.concatenate([exc_spike_times, inh_spike_times])
+    s_array = np.concatenate([exc_spike_ids, inh_spike_ids])
+    SpikeData.save(t_array, s_array, 't_array_genn.dat', 's_array_genn.dat')

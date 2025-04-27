@@ -19,6 +19,7 @@ benchmark/cuba/cuspike-build
 benchmark/cuba/__pycache__
 benchmark/cuba/*.png
 benchmark/cuba/*.txt
+benchmark/cuba/*.dat
 !benchmark/cuba/elapsedtime-excluding-compilation.png
 !benchmark/cuba/elapsedtime-including-compilation.png
 
@@ -28,6 +29,7 @@ benchmark/cobahh/cuspike-build
 benchmark/cobahh/__pycache__
 benchmark/cobahh/*.png
 benchmark/cobahh/*.txt
+benchmark/cobahh/*.dat
 !benchmark/cobahh/elapsedtime-including-compilation.png
 !benchmark/cobahh/elapsedtime-excluding-compilation.png
 

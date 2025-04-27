@@ -53,8 +53,10 @@ with open('brian2cuda-elapsedtime.txt', 'w') as f:
 
 if 'plot' in sys.argv:
     plt.figure(figsize=(75, 75))
-    plt.plot(s_mon.t/ms, s_mon.i, ',k')
+    plt.plot(s_mon.t, s_mon.i, ',k')
     plt.xlabel('Time (ms)')
     plt.ylabel('Neuron index')
     plt.savefig('brian2cuda.png')
 
+from pycuspike import SpikeData
+SpikeData.save(np.array(s_mon.t), np.array(s_mon.i), 't_array_brian2cuda.dat', 's_array_brian2cuda.dat')

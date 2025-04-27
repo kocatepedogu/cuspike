@@ -115,3 +115,6 @@ if 'plot' in sys.argv:
     plt.plot(spike_times, spike_ids, ',k')
     plt.ylabel("Neuron ID")
     plt.savefig('nestgpu.png')
+
+    from pycuspike import SpikeData
+    SpikeData.save(np.array(spike_times), np.array(spike_ids), 't_array_nestgpu.dat', 's_array_nestgpu.dat')

@@ -12,5 +12,5 @@ setup(
         long_description=LONG_DESCRIPTION,
         packages=find_packages(),
         python_requires=">=3.12",
-        install_requires=['numpy']
+        install_requires=['numpy', 'scikit-learn==1.6.1', 'scipy==1.15.2']
 )
