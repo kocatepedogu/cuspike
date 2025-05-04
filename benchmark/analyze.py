@@ -51,7 +51,7 @@ plt.figure()
 plt.grid(True, linestyle='--', alpha=0.6)
 for model_name, data in stats_data.items():
     firing_rate, cv_isi = data
-    firing_rate_grid, firing_rate_pdf = Stats.kernel_density(firing_rate, min_firing_rate, max_firing_rate)
+    firing_rate_grid, firing_rate_pdf = Stats.kernel_density(firing_rate, min_firing_rate, 20)
     firing_rate_pdfs[model_name] = firing_rate_pdf
     plt.plot(firing_rate_grid, firing_rate_pdf, label=model_name, color=colors[model_name])
 plt.title('Average Firing Rate Distribution')
