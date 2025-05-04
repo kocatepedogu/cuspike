@@ -14,4 +14,7 @@ constexpr int numThreads = 1024;
 constexpr int sharedSpikesPerThread = 10;
 constexpr int sharedSpikesPerBlock = numThreads * sharedSpikesPerThread;
 
+// Use L2 residency for the adjacency matrix
+constexpr bool l2residency = true;
+
 #endif

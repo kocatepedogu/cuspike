@@ -24,6 +24,25 @@ uint32_t *matrix = nullptr;
 uint32_t *synapses = nullptr;
 uint32_t *indices = nullptr;
 
+cudaStream_t createStreamWithResidency(int dev, void *ptr) {
+    cudaDeviceProp prop;
+    cudaGetDeviceProperties(&prop, dev);
+    CUDA_CALL(cudaDeviceSetLimit(cudaLimitPersistingL2CacheSize, prop.persistingL2CacheMaxSize));
+
+    cudaStream_t stream;
+    CUDA_CALL(cudaStreamCreate(&stream));
+
+    cudaStreamAttrValue stream_attribute;
+    stream_attribute.accessPolicyWindow.base_ptr  = reinterpret_cast<void*>(ptr);
+    stream_attribute.accessPolicyWindow.num_bytes = prop.persistingL2CacheMaxSize;
+    stream_attribute.accessPolicyWindow.hitRatio  = 1.0;
+    stream_attribute.accessPolicyWindow.hitProp   = cudaAccessPropertyPersisting;
+    stream_attribute.accessPolicyWindow.missProp  = cudaAccessPropertyStreaming;
+    CUDA_CALL(cudaStreamSetAttribute(stream, cudaStreamAttributeAccessPolicyWindow, &stream_attribute));
+
+    return stream;
+}
+
 void launchRegisterKernel(int dev) {
     dim3 dimBlock(numThreads, 1, 1);
     dim3 dimGrid(numBlocksForRegisterKernel, 1, 1);
@@ -32,7 +51,14 @@ void launchRegisterKernel(int dev) {
     initialize_synapses_bitmap(dev);
 
     void *kernelArgs[] = {&spike_times, &spike_counts, &matrix};
-    CUDA_CALL(cudaLaunchCooperativeKernel((void*)simulate_register, dimGrid, dimBlock, kernelArgs));
+
+    if constexpr (l2residency) {
+        cudaStream_t stream = createStreamWithResidency(dev, matrix);
+        CUDA_CALL(cudaLaunchCooperativeKernel((void*)simulate_register, dimGrid, dimBlock, kernelArgs, 0, stream));
+    }
+    else {
+        CUDA_CALL(cudaLaunchCooperativeKernel((void*)simulate_register, dimGrid, dimBlock, kernelArgs));
+    }
 }
 
 void launchGlobalKernel(int dev) {
@@ -44,7 +70,14 @@ void launchGlobalKernel(int dev) {
     initialize_synapses_csr(dev);
 
     void *kernelArgs[] = {&spike_times, &spike_counts, &synapses, &indices};
-    CUDA_CALL(cudaLaunchCooperativeKernel((void*)simulate_global, dimGrid, dimBlock, kernelArgs));
+
+    if constexpr(l2residency) {
+        cudaStream_t stream = createStreamWithResidency(dev, synapses);
+        CUDA_CALL(cudaLaunchCooperativeKernel((void*)simulate_global, dimGrid, dimBlock, kernelArgs, 0, stream));
+    }
+    else {
+        CUDA_CALL(cudaLaunchCooperativeKernel((void*)simulate_global, dimGrid, dimBlock, kernelArgs));
+    }
 }
 
 int main(int argc, char **argv) {
