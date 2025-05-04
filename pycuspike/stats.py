@@ -6,8 +6,8 @@ from scipy.special import rel_entr
 class Stats:
     @staticmethod
     def compute_stats(t_array, s_array):
-        N = max(s_array) - min(s_array) + 1
-        T = max(t_array) - min(s_array)
+        N = max(s_array) + 1
+        T = max(t_array)
 
         spikes_per_neuron = [list() for i in range(N)]
         for t, n in zip(t_array, s_array):
