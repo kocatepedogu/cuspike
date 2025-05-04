@@ -36,5 +36,9 @@ benchmark/cobahh/*.txt
 benchmark/cobahh/*.dat
 !benchmark/cobahh/elapsedtime-including-compilation.png
 !benchmark/cobahh/elapsedtime-excluding-compilation.png
+!benchmark/cobahh/cv-isi.png
+!benchmark/cobahh/cv-isi-kl-divergence.png
+!benchmark/cobahh/average-firing-rate.png
+!benchmark/cobahh/average-firing-rate-kl-divergence.png
 
 *.txt
