@@ -30,9 +30,9 @@ int Ne = 0.8 * N;
 Neuron {
   real r = 0;
 
-  real v = El - 5*mV;
-  real ge = 4 * 10.0*nS;
-  real gi = 20 * 10.0*nS;
+  real v = El - 5*mV + (4*rand() - 2)*mV;
+  real ge = (4 + (4*rand() - 2)) * 10.0*nS;
+  real gi = (20 + (4*rand() - 2)) * 10.0*nS;
 
   real m = alpha_m(v) / (alpha_m(v) + beta_m(v));
   real n = alpha_n(v) / (alpha_n(v) + beta_n(v));

@@ -61,9 +61,9 @@ Ce.connect(p=0.02)
 Ci.connect(p=0.02)
 
 # Initialization
-P.v = 'El - 5*mV'
-P.ge = '4 * 10.0*nS'
-P.gi = '20 * 10.0*nS'
+P.v = 'El - 5*mV + (4*rand() - 2)*mV'
+P.ge = '(4 + (4*rand() - 2)) * 10.0*nS'
+P.gi = '(20 + (4*rand() - 2)) * 10.0*nS'
 
 s_mon = SpikeMonitor(P)
 
