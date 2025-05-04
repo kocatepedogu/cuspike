@@ -54,6 +54,10 @@ void simulate_global(uint32_t *__restrict__ const spike_times,
 
     barrier.sync();
 
+    curandState rand_state;
+    curand_init(tid, tid*clock64(), 0, &rand_state);
+    #define rand() curand_uniform(&rand_state)
+
     for (int i = tid; i < N; i += stride) {
         #include "./generated/kernel-global/initialize.cu"
     }

@@ -2,6 +2,8 @@
 #include <curand_kernel.h>
 #include <cuda.h>
 #include <cooperative_groups.h>
+#include <curand.h>
+#include <curand_kernel.h>
 
 #include "config.hpp"
 
@@ -23,6 +25,10 @@ void simulate_register(uint32_t *__restrict__ const spike_times,
     cooperative_groups::grid_group barrier = cooperative_groups::this_grid();
 
     const int tid = blockIdx.x * blockDim.x + threadIdx.x;
+
+    curandState rand_state;
+    curand_init(tid, tid*clock64(), 0, &rand_state);
+    #define rand() curand_uniform(&rand_state)
 
     #include "./generated/kernel-register/initialize.cu"
 
