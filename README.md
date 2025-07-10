@@ -120,6 +120,16 @@ In the CUBA benchmark, average firing rate distribution and CV ISI distribution 
   <img src="./benchmark/cuba/cv-isi-kl-divergence.png" width="400px">
 </div>
 
+## Project Information
+
+İzmir Institute of Technology
+
+Department of Computer Engineering
+
+Bachelor of Science Thesis Project
+
+Advisor: **Asst. Prof. Işıl Öz**
+
 ## LICENSE
 
 cuSpike is free software: you can redistribute it and/or modify
