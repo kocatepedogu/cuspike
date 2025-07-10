@@ -7,6 +7,8 @@ import numpy as np
 from pathlib import Path
 from pycuspike import Stats, SpikeData
 
+FONT_SIZE = 16
+
 simulators = {
     'cuSpike': ('t_array_cuspike.dat', 's_array_cuspike.dat'),
     'GeNN': ('t_array_genn.dat', 's_array_genn.dat'),
@@ -50,27 +52,41 @@ firing_rate_pdfs = dict()
 cv_isi_pdfs = dict()
 
 # Compute PDF of per neuron average firing rate
-plt.figure()
+plt.figure(figsize=(8, 8))
 plt.grid(True, linestyle='--', alpha=0.6)
+plt.rcParams.update({'font.size': FONT_SIZE})
 for model_name, data in stats_data.items():
     firing_rate, cv_isi = data
     firing_rate_grid, firing_rate_pdf = Stats.kernel_density(firing_rate, min_firing_rate, 20)
     firing_rate_pdfs[model_name] = firing_rate_pdf
     plt.plot(firing_rate_grid, firing_rate_pdf, label=model_name, color=colors[model_name])
-plt.title('Average Firing Rate Distribution')
+#plt.xlim(-0.5, 12.5)
+plt.title('Average Firing Rate Distribution', fontsize=FONT_SIZE+2)
+plt.xlim(-0.5, 12.5)
+plt.ylim(-0.01, 0.45)
+plt.xticks(np.arange(0, 12.5, 2), fontsize=FONT_SIZE-2)
+plt.yticks(np.arange(0, 0.5, 0.1), fontsize=FONT_SIZE-2)
+plt.xlabel('Hz', fontsize=FONT_SIZE-1)
+plt.ylabel('Density', fontsize=FONT_SIZE-1)
 plt.legend()
 plt.savefig('average-firing-rate.png')
 
 # Compute PDF of per neuron CV ISI
 cv_isi_pdfs = dict()
-plt.figure()
+plt.figure(figsize=(8, 8))
 plt.grid(True, linestyle='--', alpha=0.6)
+plt.rcParams.update({'font.size': FONT_SIZE})
+cv_isi_low = 1e30
+cv_isi_high = -1e30
 for model_name, data in stats_data.items():
     firing_rate, cv_isi = data
     cv_isi_grid, cv_isi_pdf = Stats.kernel_density(cv_isi, min_cv_isi, 3)
     cv_isi_pdfs[model_name] = cv_isi_pdf
     plt.plot(cv_isi_grid, cv_isi_pdf, label=model_name, color=colors[model_name])
+    cv_isi_low = min(cv_isi_low, min(cv_isi_grid))
+    cv_isi_high = max(cv_isi_high, max(cv_isi_grid))
 plt.title('CV ISI Distribution')
+plt.ylabel('Density', fontsize=FONT_SIZE-1)
 plt.legend()
 plt.savefig('cv-isi.png')
 
