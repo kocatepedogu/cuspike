@@ -108,7 +108,7 @@ The same measurements on RTX 4080 are as follows
 
 ## Accuracy ##
 
-In the CUBA benchmark, average firing rate distribution and CV ISI distribution are very close to Brian2Cuda and NEST GPU. When Brian2Cuda is considered the ground truth, cuSpike provides the most similar distributions (lowest KL-divergences) relative to GeNN and NEST GPU. 
+In the CUBA benchmark, average firing rate distribution and CV ISI distribution are very close to Brian2Cuda and NEST GPU. When Brian2Cuda is considered the ground truth, cuSpike provides comparable distributions (similar KL-divergences) relative to GeNN and NEST GPU. 
 
 <div style="display: inline;">
   <img src="./benchmark/cuba/average-firing-rate.png" width="400px">
