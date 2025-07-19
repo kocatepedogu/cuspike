@@ -128,7 +128,7 @@ Department of Computer Engineering
 
 Bachelor of Science Thesis Project
 
-Advisor: **Asst. Prof. Işıl Öz**
+Advisor: **Assoc. Prof. Dr. Işıl Öz**
 
 ## LICENSE
 
